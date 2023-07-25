@@ -3,8 +3,8 @@
 @top Tree { element }
 
 element {
-    VBox { ("|" item)+ }
-  | HBox { ("-" item)+ }
+    VBox { (VPipe item)+ }
+  | HBox { (HPipe item)+ }
 }
 
 item {
@@ -48,4 +48,6 @@ lineEnd { newline | eof }
   eof { @eof }
   Comment { "#" ![\n]+ }
   String { ![ \t\n#] ![\n]* }
+  VPipe { "|" }
+  HPipe { "-" }
 }
