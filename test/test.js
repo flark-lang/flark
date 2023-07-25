@@ -1,15 +1,10 @@
-import { parser } from "../dist/index.js"
+import { toHtml } from "../dist/index.js"
 
-console.log(parser.parse(
-`
-Word
+const text = `|
+    - a
+    - b
+|
+    | b
+    | c`
 
-Section
-  Subsection
-    # Comment
-    Content
-    More # Comment 2
-
-  Etc
-`
-))
+console.log(toHtml(text))
