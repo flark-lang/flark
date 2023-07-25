@@ -1,12 +1,32 @@
-@top File { (Identifier | Number | String)+ }
+@top Tree { element* }
 
-@skip { space }
-
-@tokens {
-    space { $[ \n\r\t]+ }
-    Identifier { $[A-Za-z_]+ }
-    Number { $[0-9]+ }
-    String { '"' !["]* '"' }
+element {
+  Atom { Identifier lineEnd } |
+  Section { Identifier lineEnd Block }
 }
 
-@external propSource highlighting from "./highlight.js"
+Block { indent element+ (dedent | eof) }
+
+@skip {
+  spaces |
+  Comment |
+  blankLineStart (spaces | Comment)* lineEnd
+}
+
+lineEnd { newline | eof }
+
+@context trackIndent from "./tokens.js"
+
+@external tokens indentation from "./tokens.js" {
+  indent
+  dedent
+  blankLineStart
+}
+
+@tokens {
+  spaces { $[ \t]+ }
+  newline { "\n" }
+  eof { @eof }
+  Comment { "#" ![\n]+ }
+  Identifier { $[a-zA-Z0-9_]+ }
+}
