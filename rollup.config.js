@@ -1,7 +1,7 @@
 import {lezer} from "@lezer/generator/rollup"
 
 export default {
-    input: "./src/flark.grammar",
+    input: "./src/index.js",
     output: [
         {
             format: "es",
