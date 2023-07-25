@@ -11,15 +11,15 @@ export function toHtml(text) {
         enter(node) {
             if (["VPipe", "HPipe"].includes(node.name)) return false
             if (node.name == "VBox") {
-                push(`<div style="display: flex; flex-direction: column">`)
+                push(`<div class="flark-vbox">`)
                 depth += 1
             }
             if (node.name == "HBox") {
-                push(`<div style="display: flex; flex-direction: row">`)
+                push(`<div class="flark-hbox">`)
                 depth += 1
             }
             if (node.name == "String") {
-                push(`<div>`)
+                push(`<div class="flark-text">`)
                 push(`    ${text.slice(node.from, node.to)}`)
                 push(`</div>`)
                 return false
