@@ -1,11 +1,22 @@
-@top Tree { element* }
+//!element
+
+@top Tree { element }
 
 element {
-  Atom { Identifier lineEnd } |
-  Section { Identifier lineEnd Block }
+    VBox { ("|" item)+ }
+  | HBox { ("-" item)+ }
 }
 
-Block { indent element+ (dedent | eof) }
+item {
+    String lineEnd
+  | lineEnd Block
+}
+
+//!block
+
+Block { indent element (dedent | eof) }
+
+//!skip
 
 @skip {
   spaces |
@@ -13,9 +24,15 @@ Block { indent element+ (dedent | eof) }
   blankLineStart (spaces | Comment)* lineEnd
 }
 
+//!lineEnd
+
 lineEnd { newline | eof }
 
+//!context
+
 @context trackIndent from "./tokens.js"
+
+//!externalTokens
 
 @external tokens indentation from "./tokens.js" {
   indent
@@ -23,10 +40,12 @@ lineEnd { newline | eof }
   blankLineStart
 }
 
+//!tokens
+
 @tokens {
   spaces { $[ \t]+ }
   newline { "\n" }
   eof { @eof }
   Comment { "#" ![\n]+ }
-  Identifier { $[a-zA-Z0-9_]+ }
+  String { ![ \t\n#] ![\n]* }
 }
