@@ -1,0 +1,33 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  '@lezer/lr':
+    specifier: ^1.0.0
+    version: 1.0.0
+
+devDependencies:
+  '@lezer/generator':
+    specifier: ^1.0.0
+    version: 1.0.0
+
+packages:
+
+  /@lezer/common@1.0.3:
+    resolution: {integrity: sha512-JH4wAXCgUOcCGNekQPLhVeUtIqjH0yPBs7vvUdSjyQama9618IOKFJwkv2kcqdhF0my8hQEgCTEJU0GIgnahvA==}
+
+  /@lezer/generator@1.0.0:
+    resolution: {integrity: sha512-MgtTb9O2RxAn+WNfv8z9xOg7Q2orbChs9P3tHLUSBzvRL1PR2wiL/MKFpUnsYFG4mkcTTLkrkQgzUMVYa/ATfA==}
+    hasBin: true
+    dependencies:
+      '@lezer/common': 1.0.3
+      '@lezer/lr': 1.0.0
+    dev: true
+
+  /@lezer/lr@1.0.0:
+    resolution: {integrity: sha512-k6DEqBh4HxqO/cVGedb6Ern6LS7K6IOzfydJ5WaqCR26v6UR9sIFyb6PS+5rPUs/mXgnBR/QQCW7RkyjSCMoQA==}
+    dependencies:
+      '@lezer/common': 1.0.3

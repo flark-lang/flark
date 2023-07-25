@@ -1,0 +1,12 @@
+@top File { (Identifier | Number | String)+ }
+
+@skip { space }
+
+@tokens {
+    space { $[ \n\r\t]+ }
+    Identifier { $[A-Za-z_]+ }
+    Number { $[0-9]+ }
+    String { '"' !["]* '"' }
+}
+
+@external propSource highlighting from "./highlight.js"
