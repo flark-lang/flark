@@ -51,3 +51,5 @@ lineEnd { newline | eof }
   VPipe { "|" }
   HPipe { "-" }
 }
+
+@external propSource flarkHighlighting from "./highlight"
