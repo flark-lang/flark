@@ -1,5 +1,4 @@
 import { parser } from "./flark.grammar"
-import { styleParse } from "./styleParse"
 
 const indent = text => text.split("\n").map(line => "    " + line).join("\n")
 
@@ -74,10 +73,10 @@ export function toHtml(text) {
                 current = new Tag("div", ["flark-item"]).addAsChildOf(current)
             }
             if (node.name == "VBox") {
-                current = new Tag("div", ["flark-vbox"]).addAsChildOf(current)
+                current = new Tag("div", ["vbox"]).addAsChildOf(current)
             }
             if (node.name == "HBox") {
-                current = new Tag("div", ["flark-hbox"]).addAsChildOf(current)
+                current = new Tag("div", ["hbox"]).addAsChildOf(current)
             }
             if (node.name == "PlainText") {
                 new Tag("span", ["flark-text"])
@@ -86,15 +85,7 @@ export function toHtml(text) {
                 return false
             }
             if (node.name == "StyleExpr") {
-                const [head, ...atoms] = node.node.getChildren("StyleAtom").map(getText)
-                atoms.forEach(atom => {
-                    const selector = head + "-" + atom
-                    current.class_.push(selector)
-                    style.add(
-                        selector,
-                        styleParse(head, ...atoms)
-                    )
-                })
+                current.class_.push(getText(node))
             }
             return true
         },
@@ -109,5 +100,5 @@ export function toHtml(text) {
             return true
         }
     })
-    return doc.render() + "\n" + style.render()
+    return doc.render() + "\n" + `<script src="https://unpkg.com/adorable-css"></script>`
 }
