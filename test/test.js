@@ -1,6 +1,7 @@
 import { toHtml } from "../dist/index.js"
 
-const text = `|
+const text =
+`|
     - a
     - b
 |
