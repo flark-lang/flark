@@ -23,7 +23,7 @@ template { (
 
 InsertBlock {
   LBrace
-  expression
+  expression?
   RBrace
 }
 
@@ -34,7 +34,7 @@ expression {
 
 StyleBlock {
   LBracket
-  StyleExpr+
+  StyleExpr*
   RBracket
 }
 

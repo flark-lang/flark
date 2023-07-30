@@ -1,4 +1,5 @@
 import { parser } from "./flark.grammar"
+import { styleParse } from "./styleParse"
 
 const indent = text => text.split("\n").map(line => "    " + line).join("\n")
 
@@ -79,7 +80,7 @@ export function toHtml(text) {
                 current = new Tag("div", ["flark-hbox"]).addAsChildOf(current)
             }
             if (node.name == "PlainText") {
-                new Tag("div", ["flark-text"])
+                new Tag("span", ["flark-text"])
                     .addChild(getText(node))
                     .addAsChildOf(current)
                 return false
@@ -89,9 +90,10 @@ export function toHtml(text) {
                 atoms.forEach(atom => {
                     const selector = head + "-" + atom
                     current.class_.push(selector)
-                    style.add(selector, {
-
-                    })
+                    style.add(
+                        selector,
+                        styleParse(head, ...atoms)
+                    )
                 })
             }
             return true
