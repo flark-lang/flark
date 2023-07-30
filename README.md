@@ -41,3 +41,12 @@
 | {map} [w.fill h.440]
 
 ```
+
+```
+City
+  .& population > 10^6
+  .
+    # {continent}
+      # {country}
+        - {city}
+```

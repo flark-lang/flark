@@ -37,11 +37,34 @@ class Tag {
     }
 }
 
+class Style {
+    constructor() {
+        this.selectors = {}
+    }
+    add(selector, rules) {
+        this.selectors[selector] = rules
+    }
+    render() {
+        let result = ""
+        for (let [selector, rules] of Object.entries(this.selectors)) {
+            result += `.${selector} {\n`
+            for (let [key, value] of Object.entries(rules)) {
+                result += `    ${key}: ${value};\n`
+            }
+            result += "}\n"
+        }
+        return "<style>\n" + result.trim().split("\n").map(line => indent(line)).join("\n") + "\n</style>"
+    }
+}
+
 export function toHtml(text) {
     const tree = parser.parse(text)
 
     const doc = new Tag("div", [])
+    const style = new Style()
     let current = doc
+
+    const getText = node => text.slice(node.from, node.to)
     
     tree.iterate({
         enter(node) {
@@ -57,9 +80,19 @@ export function toHtml(text) {
             }
             if (node.name == "PlainText") {
                 new Tag("div", ["flark-text"])
-                    .addChild(text.slice(node.from, node.to))
+                    .addChild(getText(node))
                     .addAsChildOf(current)
                 return false
+            }
+            if (node.name == "StyleExpr") {
+                const [head, ...atoms] = node.node.getChildren("StyleAtom").map(getText)
+                atoms.forEach(atom => {
+                    const selector = head + "-" + atom
+                    current.class_.push(selector)
+                    style.add(selector, {
+
+                    })
+                })
             }
             return true
         },
@@ -74,5 +107,5 @@ export function toHtml(text) {
             return true
         }
     })
-    return doc.render()
+    return doc.render() + "\n" + style.render()
 }

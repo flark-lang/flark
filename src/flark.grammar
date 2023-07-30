@@ -42,7 +42,7 @@ StyleExpr {
     styleAtom (Dot styleAtom)*
 }
 
-styleAtom {
+styleAtom[@isGroup=StyleAtom] {
     Identifier
   | Number
   | InsertBlock

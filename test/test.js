@@ -2,7 +2,7 @@ import { toHtml } from "../dist/index.js"
 
 const text =
 `|
-    - a
+    - a [t.32]
     - b
 |
     | b
