@@ -61,7 +61,6 @@ export function toHtml(text) {
     const tree = parser.parse(text)
 
     const doc = new Tag("div", [])
-    const style = new Style()
     let current = doc
 
     const getText = node => text.slice(node.from, node.to)
@@ -73,15 +72,16 @@ export function toHtml(text) {
                 current = new Tag("div", ["flark-item"]).addAsChildOf(current)
             }
             if (node.name == "VBox") {
-                current = new Tag("div", ["vbox"]).addAsChildOf(current)
+                current.name = "div"
+                current.class_.push("vbox")
             }
             if (node.name == "HBox") {
-                current = new Tag("div", ["hbox"]).addAsChildOf(current)
+                current.name = "div"
+                current.class_.push("hbox")
             }
             if (node.name == "PlainText") {
-                new Tag("span", ["flark-text"])
-                    .addChild(getText(node))
-                    .addAsChildOf(current)
+                current.name = "span"
+                current.addChild(getText(node))
                 return false
             }
             if (node.name == "StyleExpr") {
@@ -92,8 +92,6 @@ export function toHtml(text) {
         leave(node) {
             if ([
                 "Item",
-                "VBox",
-                "HBox",
             ].includes(node.name)) {
                 current = current.parent
             }
