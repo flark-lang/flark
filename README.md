@@ -30,23 +30,15 @@
 ```
 
 ```
-| {catchWord} [center p.35]
-|
-  - [left.center p.50 w.fill]
-    | {name_kr} [64pt]
-    |
-      - {name_self}
-      - {name_alt}
-  - {flag}
-| {map} [w.fill h.440]
-
-```
-
-```
-City
-  .& population > 10^6
-  .
-    # {continent}
-      # {country}
-        - {city}
+|                     [bg(#f66) gap(35) p(35)]
+  | {motto}             [bg(#141e32) c(#f66) p(35) vbox(center) fantasy font(48)]
+  |                     []
+    -                     [grow h(235) bg(#141e32) c(#f66) p(50) jc(center)]
+      | {name_kr}           [font(64) fantasy]
+      |                     [gap(20) serif]
+        - {name_self}         [font(48)]
+        - |                   [font(48)]
+        - {name_alt}          [font(40)]
+    - {flag}              []
+  | map                 []
 ```
